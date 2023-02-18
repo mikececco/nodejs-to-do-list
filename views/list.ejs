@@ -9,16 +9,14 @@
 <body>
     <h1> <%= kindOfDay %> List</h1>
     <ul>
-        <li>Buy food</li>
-        <li>Cook food</li>
-        <li>Eat food</li>
         <% newItems.forEach((item) => { %>
             <li><%= item %></li>
         <% }) %>
     </ul>
     <form action="/" method="post">
-        <label for="newItem">Your new element</label>
-        <input type="text" name="newItem" id="newItem" placeholder="New item in list">
+        <label for="newItem">Add new item to list:</label>
+        <br>
+        <input type="text" name="newItem" id="newItem" placeholder="New item">
         <button type="submit">Add</button>
     </form>
 </body>
