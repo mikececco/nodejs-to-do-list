@@ -3,50 +3,37 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+var items = [];
+
 
 app.set('view engine', 'ejs'); //use ejs as view engine
 
+app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', function (req, res) {
-    // res.send('Hello'); //user accesses home route and as response receives back 'Hello'
+
+app.get('/', function(req, res){
 
     let today = new Date();
-    let currentDay = today.getDay()
-    let day = '';
 
-    switch (currentDay) {
-        case 0:
-            day = 'Sunday'
-            break;
-        case 1:
-            day = 'Monday'
-            break;
-        case 2:
-            day = 'Tuesday'
-            break;
-        case 3:
-            day = 'Wednesday'
-            break;
-        case 4:
-            day = 'Thursday'
-            break;
-        case 5:
-            day = 'Friday'
-            break;
-        case 6:
-            day = 'Saturday'
-            break;
-        default:
-            console.log(`Error, current day is equal to ${currentDay}`);
-            break;
-    };
-    // if (currentDay === 6 || currentDay === 0) {
-    //     day = 'Weekend';
-    //     // res.sendFile(__dirname + '/index.html')
-    // } else {
-    //     day = 'Weekday';
-    // }
-    res.render('list', { kindOfDay: day }); //looks inside views and looks for list file with ejs ext
+    let options = {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+    }
+
+    let day = today.toLocaleDateString('en-US', options);
+
+    res.render('list', {
+        kindOfDay: day,
+        newItems: items //new item coming from post req
+    }); //looks inside views and looks for list file with ejs ext
+})
+
+app.post('/', function(req, res){
+    var item = req.body.newItem;
+    items.push(item); //to use body, need to have body-parser
+    // console.log(item);
+    res.redirect('/'); //trigger app.get
 })
 
 
