@@ -9,6 +9,7 @@ var items = ['Buy food', 'Cook food', 'Eat food'];
 app.set('view engine', 'ejs'); //use ejs as view engine
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('public'))
 
 
 app.get('/', function(req, res){
