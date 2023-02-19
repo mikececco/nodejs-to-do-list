@@ -1,4 +1,4 @@
-console.log(module);
+module.exports = getDate;
 
 function getDate(){
 
